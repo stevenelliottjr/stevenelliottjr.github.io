@@ -3,22 +3,15 @@ html {
     overflow-y: scroll;
 }
 
-a {
-    color: rgb(0,105,217);
-}
-a:visited {
-    color: rgb(153,128,161);
-}
-
 body#wholeDocument {
     -webkit-text-size-adjust:none; 
     font-family: Helvetica, sans-serif; 
     font-size: 12px;
-color: rgb(238,232,212);
+color: rgb(87,110,117);
     font-family: "Helvetica Neue", sans-serif; 
     font-size: 15px;
     line-height: 1.44;
-    background-color: rgb(1,43,53);
+    background-color: rgb(253,246,226);
     
 }
 /* height hack to make nested divs set to 100% height work in Chrome and Firefox */
@@ -81,7 +74,7 @@ div.force-wrap {
 }
 tr#header {
 
-        border-bottom: 1px solid rgba(255,255,255,0.25);
+        border-bottom: 1px solid rgba(0,0,0,0.25);
     
 }
 /* This is the table used for just the outline column/note column and is nested in the cell for the outline column of the row */
@@ -317,7 +310,7 @@ tr.note-row td.note {
     /* padding-left: 5px;
     padding-right: 3px; */ 
     border: none;
-color: rgb(103,103,103);
+color: rgb(100,123,131);
     font-style: italic;
     font-size: 12px;
     font-style: italic;
@@ -409,18 +402,19 @@ Padding values are not included here because they are additive and can affect a 
 *********************************************/
 /* Named Styles */
 div#centered tr td .ns-a5p8INCsDZI-Heading1, .ns-a5p8INCsDZI-Heading1, div#centered .ns-a5p8INCsDZI-Heading1 div { 
-    color: rgb(238,232,213);
+    font-family: "Helvetica Neue", sans-serif; 
     font-weight: 300;
     font-size: 32px;
     
 }
 div#centered tr td .ns-jABEbAa9weG-Heading2, .ns-jABEbAa9weG-Heading2, div#centered .ns-jABEbAa9weG-Heading2 div { 
-    color: rgb(238,232,213);
+    font-family: "Helvetica Neue", sans-serif; 
     font-size: 24px;
     
 }
 div#centered tr td .ns-l6iKmfnBzzW-Heading3, .ns-l6iKmfnBzzW-Heading3, div#centered .ns-l6iKmfnBzzW-Heading3 div { 
-    font-weight: 700;
+    font-family: "Helvetica Neue", sans-serif; 
+    font-weight: 500;
     font-size: 18px;
     
 }
@@ -444,11 +438,11 @@ div#centered tr td .ns-pTiYvh7dlKl-Highlight1, .ns-pTiYvh7dlKl-Highlight1, div#c
     
 }
 div#centered tr td .ns-c6ONGxxOaw2-Highlight2, .ns-c6ONGxxOaw2-Highlight2, div#centered .ns-c6ONGxxOaw2-Highlight2 div { 
-    color: rgb(253,246,226);
+    color: rgb(38,138,209);
     
 }
 div#centered tr td .ns-adbEN9ZhfPh-Highlight3, .ns-adbEN9ZhfPh-Highlight3, div#centered .ns-adbEN9ZhfPh-Highlight3 div { 
-    color: rgb(7,53,66);
+    color: rgb(238,232,212);
     
 }
 
@@ -472,15 +466,13 @@ div#centered tr td .ns-bg-pEG0A5Mz2GD-Heading6, .ns-bg-pEG0A5Mz2GD-Heading6 {
     
 }
 div#centered tr td .ns-bg-pTiYvh7dlKl-Highlight1, .ns-bg-pTiYvh7dlKl-Highlight1 { 
-    background-color: rgb(1,42,53);
     
 }
 div#centered tr td .ns-bg-c6ONGxxOaw2-Highlight2, .ns-bg-c6ONGxxOaw2-Highlight2 { 
-    background-color: rgb(130,147,149);
     
 }
 div#centered tr td .ns-bg-adbEN9ZhfPh-Highlight3, .ns-bg-adbEN9ZhfPh-Highlight3 { 
-    background-color: rgb(238,232,212);
+    background-color: rgb(147,160,161);
     
 }
 
