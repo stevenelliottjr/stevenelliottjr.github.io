@@ -321,7 +321,7 @@ tr.note-row td.note-bg {
 
 }
 table.whole-row, table.whole-note, table#column-header, div.temp-wrapper {
-width: 1099px;
+width: 526px;
 
 }
 /******************
@@ -347,20 +347,12 @@ tr#header td:nth-of-type(2), tr.outline-row > td:nth-of-type(2) {
     max-width: 506px; 
     
 }
-tr#header td:nth-of-type(3), tr.outline-row > td:nth-of-type(3), tr.note-row > td:nth-of-type(3) { 
-    width: 573px; 
-    max-width: 573px; 
-    
-}
 
 /* Column styles but not background. Separate from above because this doesn't apply to column titles. Skip tr.note-row for the outline column. */
 tr.outline-row > td:nth-of-type(1), tr.note-row > td:nth-of-type(1){ 
     
 }
 tr.outline-row > td:nth-of-type(2) { 
-    
-}
-tr.outline-row > td:nth-of-type(3), tr.note-row > td:nth-of-type(3){ 
     
 }
 
