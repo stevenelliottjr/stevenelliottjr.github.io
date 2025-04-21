@@ -3,23 +3,553 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Coming Soon</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
-        h1 {
-            color: #333;
-        }
-    </style>
+    <title>Steven Elliott Jr. | AI & ML Professional</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
 </head>
 <body>
-    <h1>Site Coming Soon</h1>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">SE</div>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="about">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Steven Elliott Jr.</h1>
+                <h2>AI & Machine Learning Specialist</h2>
+                <p>Building intelligent solutions with Python, ML, and data analysis</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn primary">View Projects</a>
+                    <a href="#contact" class="btn secondary">Contact Me</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <!-- Replace with your profile image -->
+                <div class="placeholder-image">SE</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="skills" id="skills">
+        <div class="container">
+            <h2 class="section-title">Skills & Expertise</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>AI & Machine Learning</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <div class="skill-name">Deep Learning</div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">NLP</div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">Computer Vision</div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Programming</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <div class="skill-name">Python</div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">TensorFlow/PyTorch</div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">SQL</div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Data Analysis</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <div class="skill-name">Pandas/NumPy</div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">Data Visualization</div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">Statistical Analysis</div>
+                            <div class="skill-bar">
+                                <div class="skill-level" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-filter">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="ml">Machine Learning</button>
+                <button class="filter-btn" data-filter="nlp">NLP</button>
+                <button class="filter-btn" data-filter="data">Data Analysis</button>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card" data-category="ml nlp">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Transformer-Based Text Classification</h3>
+                        <p>Built a state-of-the-art text classification system using BERT models with fine-tuning for specific domains.</p>
+                        <div class="project-tags">
+                            <span>PyTorch</span>
+                            <span>NLP</span>
+                            <span>Transformers</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-category="data">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Time Series Forecasting Dashboard</h3>
+                        <p>Interactive dashboard for forecasting business metrics with multiple models and confidence intervals.</p>
+                        <div class="project-tags">
+                            <span>Python</span>
+                            <span>Plotly</span>
+                            <span>Prophet</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card" data-category="ml">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Reinforcement Learning for Optimization</h3>
+                        <p>Applied RL techniques to solve complex optimization problems in resource allocation.</p>
+                        <div class="project-tags">
+                            <span>TensorFlow</span>
+                            <span>RL</span>
+                            <span>Optimization</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="view-more">
+                <a href="#" class="btn secondary">View All Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="code-demo">
+        <div class="container">
+            <h2 class="section-title">Code Sample</h2>
+            <div class="code-block">
+                <div class="code-header">
+                    <span>transformer_classifier.py</span>
+                    <div class="code-actions">
+                        <button id="run-code"><i class="fas fa-play"></i> Run</button>
+                        <button id="copy-code"><i class="fas fa-copy"></i> Copy</button>
+                    </div>
+                </div>
+                <pre><code class="language-python">
+import torch
+from transformers import BertTokenizer, BertForSequenceClassification
+from torch.utils.data import DataLoader, Dataset
+
+class TextClassifier:
+    def __init__(self, model_name='bert-base-uncased', num_labels=2):
+        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.tokenizer = BertTokenizer.from_pretrained(model_name)
+        self.model = BertForSequenceClassification.from_pretrained(
+            model_name, 
+            num_labels=num_labels
+        ).to(self.device)
+        
+    def train(self, train_texts, train_labels, batch_size=16, epochs=3):
+        # Prepare dataset
+        dataset = TextDataset(train_texts, train_labels, self.tokenizer)
+        dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
+        
+        # Optimizer
+        optimizer = torch.optim.AdamW(self.model.parameters(), lr=2e-5)
+        
+        # Training loop
+        self.model.train()
+        for epoch in range(epochs):
+            total_loss = 0
+            for batch in dataloader:
+                optimizer.zero_grad()
+                input_ids = batch['input_ids'].to(self.device)
+                attention_mask = batch['attention_mask'].to(self.device)
+                labels = batch['labels'].to(self.device)
+                
+                outputs = self.model(
+                    input_ids=input_ids,
+                    attention_mask=attention_mask,
+                    labels=labels
+                )
+                
+                loss = outputs.loss
+                total_loss += loss.item()
+                
+                loss.backward()
+                optimizer.step()
+                
+            print(f"Epoch {epoch+1}/{epochs} - Loss: {total_loss/len(dataloader):.4f}")
+            
+    def predict(self, texts):
+        self.model.eval()
+        predictions = []
+        
+        with torch.no_grad():
+            for text in texts:
+                inputs = self.tokenizer(
+                    text, 
+                    return_tensors="pt",
+                    truncation=True,
+                    padding=True
+                ).to(self.device)
+                
+                outputs = self.model(**inputs)
+                probs = torch.nn.functional.softmax(outputs.logits, dim=-1)
+                predictions.append(probs.cpu().numpy())
+                
+        return predictions
+
+# Example dataset class
+class TextDataset(Dataset):
+    def __init__(self, texts, labels, tokenizer, max_length=128):
+        self.encodings = tokenizer(
+            texts, 
+            truncation=True, 
+            padding=True, 
+            max_length=max_length
+        )
+        self.labels = labels
+
+    def __getitem__(self, idx):
+        item = {
+            key: torch.tensor(val[idx]) 
+            for key, val in self.encodings.items()
+        }
+        item['labels'] = torch.tensor(self.labels[idx])
+        return item
+        
+    def __len__(self):
+        return len(self.labels)
+                </code></pre>
+            </div>
+            <div class="code-output hidden">
+                <div class="output-header">
+                    <span>Output</span>
+                    <button id="clear-output"><i class="fas fa-times"></i></button>
+                </div>
+                <pre id="output-content">Epoch 1/3 - Loss: 0.3421
+Epoch 2/3 - Loss: 0.1832
+Epoch 3/3 - Loss: 0.0951
+Model trained successfully!
+</pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog" id="blog">
+        <div class="container">
+            <h2 class="section-title">Blog</h2>
+            <div class="blog-posts">
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <div class="blog-placeholder">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">April 15, 2025</span>
+                            <span class="blog-category">AI Research</span>
+                        </div>
+                        <h3 class="blog-title">Understanding Attention Mechanisms in Transformers</h3>
+                        <p class="blog-excerpt">A deep dive into how self-attention works and why it's revolutionized natural language processing...</p>
+                        <a href="/blog/attention-mechanisms.html" class="blog-read-more">Read Article</a>
+                    </div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <div class="blog-placeholder">
+                            <i class="fas fa-database"></i>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">March 28, 2025</span>
+                            <span class="blog-category">Data Science</span>
+                        </div>
+                        <h3 class="blog-title">Effective Data Visualization Techniques for ML Projects</h3>
+                        <p class="blog-excerpt">How to communicate complex machine learning concepts through intuitive visualizations...</p>
+                        <a href="/blog/data-visualization.html" class="blog-read-more">Read Article</a>
+                    </div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <div class="blog-placeholder">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-date">March 10, 2025</span>
+                            <span class="blog-category">ML Engineering</span>
+                        </div>
+                        <h3 class="blog-title">Scaling ML Models in Production: Lessons Learned</h3>
+                        <p class="blog-excerpt">Real-world challenges and solutions for deploying machine learning at scale...</p>
+                        <a href="/blog/scaling-ml.html" class="blog-read-more">Read Article</a>
+                    </div>
+                </article>
+            </div>
+            <div class="view-more">
+                <a href="/blog/" class="btn secondary">View All Articles</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <p>I'm currently open to new opportunities in AI and machine learning. Feel free to reach out if you'd like to discuss potential collaborations or projects.</p>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:contact@stevenelliott.dev">contact@stevenelliott.dev</a>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fab fa-linkedin"></i>
+                            <a href="https://linkedin.com/in/stevenelliottjr" target="_blank">linkedin.com/in/stevenelliottjr</a>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fab fa-github"></i>
+                            <a href="https://github.com/stevenelliottjr" target="_blank">github.com/stevenelliottjr</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">SE</div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <a href="https://github.com/stevenelliottjr" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/stevenelliottjr" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://twitter.com/stevenelliottjr" target="_blank"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Steven Elliott Jr. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        document.addEventListener('DOMContentLoaded', () => {
+            hljs.highlightAll();
+            
+            // Code demo functionality
+            const runCodeBtn = document.getElementById('run-code');
+            const copyCodeBtn = document.getElementById('copy-code');
+            const codeOutput = document.querySelector('.code-output');
+            const clearOutputBtn = document.getElementById('clear-output');
+            
+            if (runCodeBtn) {
+                runCodeBtn.addEventListener('click', () => {
+                    codeOutput.classList.remove('hidden');
+                });
+            }
+            
+            if (clearOutputBtn) {
+                clearOutputBtn.addEventListener('click', () => {
+                    codeOutput.classList.add('hidden');
+                });
+            }
+            
+            if (copyCodeBtn) {
+                copyCodeBtn.addEventListener('click', () => {
+                    const codeBlock = document.querySelector('.language-python');
+                    const range = document.createRange();
+                    range.selectNode(codeBlock);
+                    window.getSelection().removeAllRanges();
+                    window.getSelection().addRange(range);
+                    document.execCommand('copy');
+                    window.getSelection().removeAllRanges();
+                    
+                    copyCodeBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        copyCodeBtn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                    }, 2000);
+                });
+            }
+            
+            // Project filtering
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filter = btn.getAttribute('data-filter');
+                    
+                    // Update active button
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Filter projects
+                    projectCards.forEach(card => {
+                        const categories = card.getAttribute('data-category').split(' ');
+                        if (filter === 'all' || categories.includes(filter)) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Dark mode toggle
+            const themeToggle = document.querySelector('.theme-toggle');
+            const body = document.body;
+            
+            // Check for saved theme preference
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'dark') {
+                body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+            
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                }
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Form submission
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // Normally would send form data to server here
+                    
+                    // For demo purposes, just show success message
+                    this.innerHTML = '<div class="form-success"><i class="fas fa-check-circle"></i><h3>Thank You!</h3><p>Your message has been sent successfully.</p></div>';
+                });
+            }
+        });
+    </script>
 </body>
 </html>
