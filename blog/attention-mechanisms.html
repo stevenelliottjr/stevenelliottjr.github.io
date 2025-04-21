@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Attention Mechanisms in Transformers | Steven Elliott Jr.</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <style>
+        /* Blog specific styles */
+        .blog-post {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.8;
+        }
+        
+        .blog-post h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .blog-post h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .blog-post h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+        }
+        
+        .blog-post p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .blog-post ul, .blog-post ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        .blog-post li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .blog-post ul {
+            list-style-type: disc;
+        }
+        
+        .blog-post ol {
+            list-style-type: decimal;
+        }
+        
+        .blog-post pre {
+            margin-bottom: 1.5rem;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+        
+        .blog-post img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+        }
+        
+        .blog-post blockquote {
+            margin: 2rem 0;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            background-color: var(--border-color);
+            border-radius: var(--border-radius);
+            font-style: italic;
+        }
+        
+        .blog-post blockquote p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .blog-meta {
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            color: var(--light-text-color);
+        }
+        
+        .blog-meta span {
+            margin-right: 1rem;
+        }
+        
+        .blog-meta i {
+            margin-right: 0.5rem;
+        }
+        
+        .blog-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+        
+        .blog-tags a {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 0.875rem;
+            color: var(--light-text-color);
+            transition: var(--transition);
+        }
+        
+        .blog-tags a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .blog-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .blog-navigation a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .blog-navigation .prev i {
+            margin-right: 0.5rem;
+        }
+        
+        .blog-navigation .next i {
+            margin-left: 0.5rem;
+        }
+        
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background-color: var(--border-color);
+            border-radius: var(--border-radius);
+        }
+        
+        .author-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--light-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--light-text-color);
+        }
+        
+        .author-info h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .author-info p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            color: var(--light-text-color);
+        }
+        
+        .attention-visual {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .attention-visual img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .attention-visual figcaption {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--light-text-color);
+        }
+        
+        /* Dark mode specific styles */
+        .dark-mode .blog-post blockquote {
+            background-color: #2d2d2d;
+        }
+        
+        .dark-mode .blog-tags a {
+            background-color: #2d2d2d;
+        }
+        
+        .dark-mode .blog-author {
+            background-color: #2d2d2d;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="../index.html" class="logo">SE</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="../index.html#skills">Skills</a></li>
+                    <li><a href="../index.html#projects">Projects</a></li>
+                    <li><a href="../index.html#blog">Blog</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+                <div class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="blog-post-container" style="padding-top: 80px;">
+        <div class="container">
+            <article class="blog-post">
+                <h1>Understanding Attention Mechanisms in Transformers</h1>
+                
+                <div class="blog-meta">
+                    <span><i class="far fa-calendar"></i> April 15, 2025</span>
+                    <span><i class="far fa-folder"></i> AI Research</span>
+                    <span><i class="far fa-clock"></i> 10 min read</span>
+                </div>
+                
+                <p>The introduction of transformer models has revolutionized the field of natural language processing. At the heart of these transformers lies a powerful mechanism called <strong>self-attention</strong>, which has enabled machines to understand context and relationships within text data at an unprecedented level.</p>
+                
+                <p>In this article, we'll explore how attention mechanisms work in transformer models, why they're so effective, and how they've changed the landscape of AI.</p>
+                
+                <h2>The Problem with Traditional Sequence Models</h2>
+                
+                <p>Before transformers, recurrent neural networks (RNNs) and their variants like LSTMs and GRUs were the go-to architectures for sequential data. However, they had significant limitations:</p>
+                
+                <ul>
+                    <li>Sequential processing made them slow to train</li>
+                    <li>Difficulty capturing long-range dependencies</li>
+                    <li>Vanishing gradient problem when dealing with long sequences</li>
+                </ul>
+                
+                <p>Transformers addressed these issues by introducing a novel architecture that processes all tokens in a sequence simultaneously rather than one after another.</p>
+                
+                <h2>Self-Attention: The Core Innovation</h2>
+                
+                <p>The self-attention mechanism allows the model to weigh the importance of different words in a sentence when encoding a specific word. In essence, it answers the question: "When processing this word, which other words should I pay attention to?"</p>
+                
+                <div class="attention-visual">
+                    <figure>
+                        <img src="../images/attention-mechanism.png" alt="Self-attention mechanism visualization">
+                        <figcaption>Fig 1: Visualization of self-attention between words in a sentence</figcaption>
+                    </figure>
+                </div>
+                
+                <p>The basic computation of self-attention involves three main components:</p>
+                
+                <h3>1. Query, Key, and Value Vectors</h3>
+                
+                <p>For each word in a sequence, the model creates three different vectors:</p>
+                
+                <ul>
+                    <li><strong>Query (Q)</strong>: Represents what the word is "looking for"</li>
+                    <li><strong>Key (K)</strong>: Represents what the word "offers" to others</li>
+                    <li><strong>Value (V)</strong>: Represents the actual content of the word</li>
+                </ul>
+                
+                <p>These vectors are computed by multiplying the word embedding by three different weight matrices that the model learns during training.</p>
+                
+                <h3>2. Computing Attention Scores</h3>
+                
+                <p>The attention score between any two words is calculated by taking the dot product of the query vector of the first word with the key vector of the second word. This gives us a measure of compatibility between the words.</p>
+                
+                <p>Mathematically, for a word i trying to find its relationship with word j:</p>
+                
+                <pre><code class="language-python">
+# Pseudo-code for attention score calculation
+score = dot_product(query_i, key_j)
+                </code></pre>
+                
+                <p>These scores are then scaled and passed through a softmax function to get attention weights that sum to 1.</p>
+                
+                <h3>3. Computing the Weighted Sum</h3>
+                
+                <p>Finally, each word's representation is updated by taking a weighted sum of all word values, where the weights are the attention scores calculated in the previous step.</p>
+                
+                <pre><code class="language-python">
+# Pseudo-code for the weighted sum
+attention_output_i = sum(attention_weight_ij * value_j for j in sequence)
+                </code></pre>
+                
+                <h2>Multi-Head Attention: Attending to Different Aspects</h2>
+                
+                <p>In practice, transformers don't just use a single attention mechanism but employ multiple attention "heads" in parallel. Each head can focus on different aspects of the relationships between words.</p>
+                
+                <p>For example, one attention head might focus on syntactic relationships, while another might capture semantic relationships or coreference resolution.</p>
+                
+                <blockquote>
+                    <p>"Multi-head attention allows the model to jointly attend to information from different representation subspaces at different positions." — <cite>Attention Is All You Need (Vaswani et al., 2017)</cite></p>
+                </blockquote>
+                
+                <h2>Why Attention Mechanisms Are Revolutionary</h2>
+                
+                <p>The impact of attention mechanisms extends far beyond just a technical improvement. Here's why they've been so transformative:</p>
+                
+                <h3>1. Parallelization</h3>
+                
+                <p>Unlike RNNs, which process tokens sequentially, transformers can process all tokens in parallel, dramatically speeding up training time.</p>
+                
+                <h3>2. Long-Range Dependencies</h3>
+                
+                <p>Attention directly models relationships between all pairs of tokens, regardless of their distance in the sequence, making it much better at capturing long-range dependencies.</p>
+                
+                <h3>3. Interpretability</h3>
+                
+                <p>The attention weights provide insight into which parts of the input the model is focusing on when making predictions, adding a layer of interpretability often missing in neural networks.</p>
+                
+                <h2>From Theory to Practice: Implementing Attention</h2>
+                
+                <p>Let's look at a simplified implementation of self-attention in PyTorch:</p>
+                
+                <pre><code class="language-python">
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class SelfAttention(nn.Module):
+    def __init__(self, embed_size, heads):
+        super(SelfAttention, self).__init__()
+        self.embed_size = embed_size
+        self.heads = heads
+        self.head_dim = embed_size // heads
+        
+        assert (self.head_dim * heads == embed_size), "Embed size needs to be divisible by heads"
+        
+        # Linear transformations for Q, K, V
+        self.values = nn.Linear(self.head_dim, self.head_dim, bias=False)
+        self.keys = nn.Linear(self.head_dim, self.head_dim, bias=False)
+        self.queries = nn.Linear(self.head_dim, self.head_dim, bias=False)
+        self.fc_out = nn.Linear(heads * self.head_dim, embed_size)
+        
+    def forward(self, values, keys, query, mask=None):
+        N = query.shape[0]  # Batch size
+        value_len, key_len, query_len = values.shape[1], keys.shape[1], query.shape[1]
+        
+        # Split embedding into self.heads pieces
+        values = values.reshape(N, value_len, self.heads, self.head_dim)
+        keys = keys.reshape(N, key_len, self.heads, self.head_dim)
+        queries = query.reshape(N, query_len, self.heads, self.head_dim)
+        
+        # Linear transformations
+        values = self.values(values)
+        keys = self.keys(keys)
+        queries = self.queries(queries)
+        
+        # Attention calculation
+        energy = torch.einsum("nqhd,nkhd->nhqk", [queries, keys])
+        
+        if mask is not None:
+            energy = energy.masked_fill(mask == 0, float("-1e20"))
+        
+        # Scaled dot-product attention
+        attention = torch.softmax(energy / (self.embed_size ** (1/2)), dim=3)
+        
+        # Multiply attention weights with values
+        out = torch.einsum("nhql,nlhd->nqhd", [attention, values])
+        
+        # Reshape and pass through final linear layer
+        out = out.reshape(N, query_len, self.heads * self.head_dim)
+        out = self.fc_out(out)
+        
+        return out
+                </code></pre>
+                
+                <h2>The Impact on Modern AI Systems</h2>
+                
+                <p>The introduction of attention mechanisms has enabled the development of models like BERT, GPT, and T5, which have set new benchmarks across a wide range of NLP tasks. These models are now being used in production for:</p>
+                
+                <ul>
+                    <li>Machine translation with unprecedented accuracy</li>
+                    <li>Question answering systems that understand context</li>
+                    <li>Text summarization that captures key information</li>
+                    <li>Chatbots and virtual assistants with improved comprehension</li>
+                    <li>Multimodal systems that can understand both text and images</li>
+                </ul>
+                
+                <h2>Conclusion: The Future of Attention</h2>
+                
+                <p>Attention mechanisms have fundamentally changed how we approach sequence modeling tasks. As research continues, we're seeing new variations emerge, such as sparse attention for handling even longer sequences and efficient attention implementations that reduce computational costs.</p>
+                
+                <p>The core concept of allowing models to focus on relevant parts of the input when making predictions has proven to be a powerful paradigm that extends beyond NLP to computer vision, reinforcement learning, and multimodal AI systems.</p>
+                
+                <p>As we look to the future, attention mechanisms will likely remain a cornerstone of AI architecture design, continuing to enable more sophisticated and capable AI systems.</p>
+                
+                <div class="blog-tags">
+                    <a href="#">Transformers</a>
+                    <a href="#">NLP</a>
+                    <a href="#">Deep Learning</a>
+                    <a href="#">Attention Mechanisms</a>
+                    <a href="#">AI Research</a>
+                </div>
+                
+                <div class="blog-author">
+                    <div class="author-image">SE</div>
+                    <div class="author-info">
+                        <h4>Steven Elliott Jr.</h4>
+                        <p>AI researcher and machine learning engineer specializing in natural language processing and advanced neural architectures.</p>
+                    </div>
+                </div>
+                
+                <div class="blog-navigation">
+                    <a href="#" class="prev"><i class="fas fa-chevron-left"></i> Previous: Scaling ML Models in Production</a>
+                    <a href="#" class="next">Next: The Future of Generative AI <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">SE</div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="../index.html#about">About</a></li>
+                        <li><a href="../index.html#skills">Skills</a></li>
+                        <li><a href="../index.html#projects">Projects</a></li>
+                        <li><a href="../index.html#blog">Blog</a></li>
+                        <li><a href="../index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <a href="https://github.com/stevenelliottjr" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/stevenelliottjr" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://twitter.com/stevenelliottjr" target="_blank"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Steven Elliott Jr. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../script.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        document.addEventListener('DOMContentLoaded', () => {
+            hljs.highlightAll();
+        });
+    </script>
+</body>
+</html>

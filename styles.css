@@ -1,498 +1,948 @@
+/* Base styles */
+:root {
+    --primary-color: #4a6cfa;
+    --secondary-color: #6c757d;
+    --dark-color: #212529;
+    --light-color: #f8f9fa;
+    --text-color: #333;
+    --light-text-color: #6c757d;
+    --border-color: #e9ecef;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --border-radius: 0.25rem;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --transition: all 0.3s ease;
+}
+
+/* Dark mode variables */
+.dark-mode {
+    --primary-color: #5a7bff;
+    --secondary-color: #adb5bd;
+    --dark-color: #f8f9fa;
+    --light-color: #212529;
+    --text-color: #f8f9fa;
+    --light-text-color: #adb5bd;
+    --border-color: #343a40;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Reset & Global Styles */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 html {
-    overflow-y: scroll;
+    scroll-behavior: smooth;
 }
 
-body#wholeDocument {
-    -webkit-text-size-adjust:none; 
-    font-family: Helvetica, sans-serif; 
-    font-size: 12px;
-color: rgb(87,110,117);
-    font-family: "Helvetica Neue", sans-serif; 
-    font-size: 15px;
-    line-height: 1.44;
-    background-color: rgb(253,246,226);
-    
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--light-color);
+    transition: var(--transition);
 }
-/* height hack to make nested divs set to 100% height work in Chrome and Firefox */
-table.whole-row, table.whole-note, table#column-header {
-    height: 1px;
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: var(--transition);
 }
-table {
-    border-collapse: collapse;
+
+a:hover {
+    color: var(--dark-color);
 }
-div {
+
+ul {
+    list-style-type: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.container {
     width: 100%;
-    box-sizing: border-box;
-    min-height: 13px;
-}
-div#centered, .temp {
-    display: block;
-    text-align: center;
-}
-div#centered > table, div.temp-wrapper {
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: left;
+    padding: 0 1.5rem;
 }
-tr.outline-row > td > div, table.note-table {
-    display: inline-table;
-}
-tr.outline-row > td > div > div, tr.outline-row > td div.note-icon, tr.note-row > td > div, table.outline-column div, table.note-table div  {
-    display: inline-table;
-}
-div.column, div.note-filler > div {
-    display: inline-block; 
-}
-tr#header div {
+
+.btn {
     display: inline-block;
-}
-div.pdf-div {
-    width: 100%;
-    position: relative;
-    display: block;
-}
-object.pdf-object {
-    vertical-align: middle;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0; bottom: 0; left: 0; right: 0;
-}
-iframe.pdf-iframe {
-    vertical-align: middle;
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-td,th {
-    padding: 0px;
-    empty-cells: show;
-}
-div.force-wrap {
-    table-layout: fixed;
-    word-wrap: break-word;
-}
-tr#header {
-
-        border-bottom: 1px solid rgba(0,0,0,0.25);
-    
-}
-/* This is the table used for just the outline column/note column and is nested in the cell for the outline column of the row */
-table.outline-column td, table.outline-column-note td {
-    border-bottom: 0px;
-    border-left: 0px;
-}
-tr.outline-row > td, tr.note-row > td  {
-    height: inherit;
-}
-table.outline-column, tr.outline-row td, tr.note-row td, div.outline-column-div, div.note-filler, tr#header td, tr#header > td > div, div.note-outline-column-div {
-    height: 100%;
-}
-@media all and (-ms-high-contrast:none) {
-    /* Target IE */
-    div#centered tr.outline-row > td, div#centered tr.note-row > td, div#centered tr#header td  {
-        height: 5px;
-    }
-}
-@supports (-ms-accelerator:true) {
-    /* Target MS Edge */
-    div#centered tr.outline-row > td, div#centered tr.note-row > td, div#centered tr#header td  {
-        height: 5px;
-    }
-}
-tr#header div, table.outline-column, table.note-table {
-    width: 100%;
-}
-.handle {
-    white-space: nowrap;
-    text-align:right;
-    vertical-align: baseline;
-}
-td.label {
-    text-align: right;
-    white-space: nowrap;
-}
-td.label, .column {
-    vertical-align: baseline;
-}
-tr.note-row td.label {
-    /* Same row label is put in invisibly the note to keep alignment but,
-    if it's a large font size, this will cause the note to be taller
-    than it should be. This works around that */
-    line-height: 0;
-}
-div.white-space {
-    white-space: pre-wrap;
-}
-
-
-/********* START ********
-Grid lines
-*************************/
-tr#header td > div {
-
-}
-div.note-div, div.note-filler, div.outline-column-div, tr.outline-row > td:not(.column) > div.fill-cell, div.note-outline-column-div, tr.outline-row > td:nth-of-type(1) > div  {
-    
-}
-
-
-table#column-header {
-
-}
-table#column-header ~ table.whole-row:first-of-type {
-    border-top: none;
-}
-tr.outline-row > td:last-of-type:not(.column) > div.fill-cell, tr.note-row > td:last-of-type:not(.note) > div.note-filler, tr#header td:last-of-type > div {
-
-}
-/* END grid lines */
-
-table.outline-column-note {
-    width: 100%;
-    height: 100%;
-}
-.fill-cell {
-    height: 100%;
-    width: 100%;
-}
-
-.summary_node {
-    background: rgba(0,0,0,.12);
-}
-    
-/* To make checkbox columns always centered */
-div#centered div.checkbox {
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    font-weight: 600;
     text-align: center;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
 }
 
-table.outline-column td:not(:last-of-type) {
-
+.btn.primary {
+    background-color: var(--primary-color);
+    color: white;
 }
 
-/********* START ********
-Expand/collapse
-*************************/
-.visible {
-
+.btn.primary:hover {
+    background-color: #3a5be5;
+    transform: translateY(-2px);
 }
+
+.btn.secondary {
+    background-color: transparent;
+    color: var(--dark-color);
+    border: 2px solid var(--dark-color);
+}
+
+.btn.secondary:hover {
+    background-color: var(--dark-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.dark-mode .btn.secondary {
+    color: var(--light-color);
+    border: 2px solid var(--light-color);
+}
+
+.dark-mode .btn.secondary:hover {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+}
+
+.section-title {
+    margin-bottom: 2.5rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+section {
+    padding: 5rem 0;
+}
+
+/* Header */
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: var(--light-color);
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.theme-toggle {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 5rem;
+}
+
+.hero-content {
+    flex: 1;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.hero-content h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    color: var(--light-text-color);
+    max-width: 600px;
+    margin-bottom: 2rem;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.placeholder-image {
+    width: 300px;
+    height: 300px;
+    background-color: var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--light-text-color);
+}
+
+.hero .container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Skills Section */
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.skill-category h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.skill-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.skill-name {
+    font-weight: 500;
+}
+
+.skill-bar {
+    background-color: var(--border-color);
+    height: 8px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.skill-level {
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius);
+}
+
+/* Projects Section */
+.projects-filter {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.filter-btn {
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    background-color: var(--light-color);
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.project-image {
+    height: 200px;
+    background-color: var(--border-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.project-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.project-placeholder i {
+    font-size: 3rem;
+    color: var(--light-text-color);
+}
+
+.project-content {
+    padding: 1.5rem;
+}
+
+.project-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.project-content p {
+    color: var(--light-text-color);
+    margin-bottom: 1rem;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.project-tags span {
+    padding: 0.25rem 0.5rem;
+    background-color: var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 0.875rem;
+    color: var(--light-text-color);
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+}
+
+.project-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+}
+
+.view-more {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+/* Code Demo Section */
+.code-demo {
+    background-color: var(--border-color);
+    padding: 5rem 0;
+}
+
+.code-block {
+    background-color: #1e1e1e;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+}
+
+.code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background-color: #252525;
+    color: #e0e0e0;
+}
+
+.code-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.code-actions button {
+    background-color: #3d3d3d;
+    color: #e0e0e0;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--border-radius);
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    transition: var(--transition);
+}
+
+.code-actions button:hover {
+    background-color: #4a6cfa;
+}
+
+.code-output {
+    background-color: #f0f0f0;
+    border-radius: var(--border-radius);
+    margin-top: 1rem;
+    overflow: hidden;
+}
+
+.dark-mode .code-output {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+.output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #e0e0e0;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+.dark-mode .output-header {
+    background-color: #3d3d3d;
+    border-bottom: 1px solid #4d4d4d;
+}
+
+.output-header button {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    color: #666;
+}
+
+.dark-mode .output-header button {
+    color: #ccc;
+}
+
+#output-content {
+    padding: 1rem;
+    margin: 0;
+    white-space: pre-wrap;
+    color: #333;
+}
+
+.dark-mode #output-content {
+    color: #e0e0e0;
+}
+
 .hidden {
     display: none;
 }
-.temp {
-    min-height: 0px;
-}
-/* END expand/collapse */
 
-div.note-outline-column-div table {
-    vertical-align: top;
-}
-
-td.empty {
-    display: none;
+/* Blog Section */
+.blog-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
 }
 
-
-/********* START ********
-Image handle styles
-*************************/
-td.note {
-    vertical-align: baseline;
-}
-div.handle img {
-    vertical-align: middle;
-}
-div.note-icon {
-    text-align: center;
-}
-img.status {
-    height: 13px;
-    width: 13px;
-    position: relative;
-    bottom: 1px;
-    top: 0px;
-}
-img.checkbox-column {
-    height: 13px;
-    width: 13px;
-    vertical-align: middle;
-}
-img.leaf {
-    height: 5px;
-    width: 5px;
-    position: relative;
-    top: -1px;
-}
-img.parent {
-    height: 9px;
-    width: 9px;
-}
-img.note-icon {
-    height: 13px;
-    width: 13px;
-    position: relative;
-    vertical-align: middle;
+.blog-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    background-color: var(--light-color);
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
 }
 
-/* END image handle styles */
-
-
-/********* START ********
-Padding values
-*************************/
-
-/* Column text */
-table.outline-column td:nth-of-type(4), div.column, tr#header div > div > div  {
-    padding-left: 4px;
-    padding-right: 4px;
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-table.outline-column td:nth-of-type(4), div.column, div.note-icon  {
-    padding-bottom: 5px;
-    padding-top: 4px;
-}
-/* When a note is expanded, the row it belongs to doesn't have bottom row padding, that padding goes to the bottom of the note */
-table.note-expanded table.outline-column td:nth-of-type(4), table.note-expanded div.column, table.note-expanded div.note-icon {
-    padding-bottom: 0px;
-}
-/* last-child class is set by JS */
-tr.last-child table.outline-column td:nth-of-type(4), tr.last-child div.column, tr.last-child div.note-icon {
-    padding-bottom: 5px;
-}
-/* Note text */
-table.note-table td:nth-of-type(4) {
-    padding-left: 4px;
-    padding-right: 4px;
-    margin-top: 0px;
-    padding-bottom: 5px;
-}
-table.note-table {
-    margin-top: 0px;
-}
-/* Set above children padding */
-tr[data-state="expanded"][data-has-children="1"] table.outline-column td:nth-of-type(4), tr[data-state="expanded"][data-has-children="1"] div.column {
-    padding-bottom: 5px;
-}
-/* When there are children and note is expanded, don't set above children padding on the row, it goes to the note */
-tr[data-state="expanded"][data-has-children="1"].note-expanded table.outline-column td:nth-of-type(4), tr[data-state="expanded"][data-has-children="1"].note-expanded div.column, tr[data-state="expanded"][data-has-children="1"].note-expanded div.note-icon {
-    padding-bottom: 0px;
-}
-/* Set above children padding on the note when it is visible */
-tr[data-state="expanded"][data-has-children="1"].note-expanded + tr.note-row table.note-table td:nth-of-type(4) {
-    padding-bottom: 5px;
-}
-/* Set last child padding on the note when it is visible, last-child class is set through JS */
-tr.note-row.last-child table.note-table td:nth-of-type(4) {
-    padding-bottom: 5px;
+.blog-image {
+    height: 180px;
+    background-color: var(--border-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-
-
-td.label {
-    padding-top: 0px;
-    padding-left: 2px;
-    padding-right: 3px;
-}
-td.label:empty {
-    vertical-align: inherit;
-}
-img.parent {
-    padding-right: 3px;
-}
-img.leaf {
-    padding-right: 5px;
-}
-/* End padding values */
-
-
-
-tr.note-row td.note {
-    /* padding-left: 5px;
-    padding-right: 3px; */ 
-    border: none;
-color: rgb(100,123,131);
-    font-style: italic;
-    font-size: 12px;
-    font-style: italic;
-    font-size: 12px;
-    
-}
-tr.note-row td.note-bg {
-
-}
-table.whole-row, table.whole-note, table#column-header, div.temp-wrapper {
-width: 526px;
-
-}
-/******************
-Column widths and styles, including background. Also applies to column titles. Skip tr.note-row for the outline column.
-These fold in any named styles applied to columns so any manual changes to named styles will also need to be done here
-*******************/
-/* When notes are set to span columns, need to override column widths */
-div#centered table.span-columns {
+.blog-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    max-width: 100%;
-}
-/* Column widths + backgrounds */
-tr#header td:nth-of-type(1), tr.outline-row > td:nth-of-type(1), tr.note-row > td:nth-of-type(1) { 
-    width: 20px; 
-    max-width: 20px; 
-}
-table.outline-column { 
-    width: 506px; 
-    max-width: 506px; 
-}
-tr#header td:nth-of-type(2), tr.outline-row > td:nth-of-type(2) { 
-    width: 506px; 
-    max-width: 506px; 
-    
+    height: 100%;
 }
 
-/* Column styles but not background. Separate from above because this doesn't apply to column titles. Skip tr.note-row for the outline column. */
-tr.outline-row > td:nth-of-type(1), tr.note-row > td:nth-of-type(1){ 
-    
-}
-tr.outline-row > td:nth-of-type(2) { 
-    
+.blog-placeholder i {
+    font-size: 3rem;
+    color: var(--light-text-color);
 }
 
-
-/* Column header style */
-
-tr#header div > div > div {
-padding-bottom: 2px;
-
-}
-tr#header > td > div > div {
-    
+.blog-content {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-
-/* Level Styles */
-/*****************
-Level# styles – Does not include background colors. Applied to both nested outline column table and divs in non-nested row cells. Applied to row label cell of note rows.
-Level# background color – Applied to both div holding nested outline column table and divs in non-nested row cells
-Level# gutter color – Only applied to nested table for outline column
-******************/
-/* Level 1 styles */
-tr.outline-row.level-1 td, tr.outline-row.level-1 div > div, tr.note-row.level-1 table.note-table td:nth-of-type(3) { 
-    font-size: 18px;
-    
-}
-/* Level 1 background color */
-tr.level-1 > td > div.alt-row-layer > div, tr.level-1.note-row > td > div { 
-    
-}
-/* Level 1 gutter color */
-tr.outline-row.level-1 table.outline-column td:not(:last-of-type) { 
-    
+.blog-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--light-text-color);
 }
 
-/*********************************************
-Named styles info:
-Padding values are not included here because they are additive and can affect a different row than the one that has the attribute
-*********************************************/
-/* Named Styles */
-div#centered tr td .ns-a5p8INCsDZI-Heading1, .ns-a5p8INCsDZI-Heading1, div#centered .ns-a5p8INCsDZI-Heading1 div { 
-    font-family: "Helvetica Neue", sans-serif; 
-    font-weight: 300;
-    font-size: 32px;
-    
+.blog-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
 }
-div#centered tr td .ns-jABEbAa9weG-Heading2, .ns-jABEbAa9weG-Heading2, div#centered .ns-jABEbAa9weG-Heading2 div { 
-    font-family: "Helvetica Neue", sans-serif; 
-    font-size: 24px;
-    
+
+.blog-excerpt {
+    color: var(--light-text-color);
+    margin-bottom: 1rem;
+    flex: 1;
 }
-div#centered tr td .ns-l6iKmfnBzzW-Heading3, .ns-l6iKmfnBzzW-Heading3, div#centered .ns-l6iKmfnBzzW-Heading3 div { 
-    font-family: "Helvetica Neue", sans-serif; 
+
+.blog-read-more {
+    align-self: flex-start;
     font-weight: 500;
-    font-size: 18px;
-    
-}
-div#centered tr td .ns-pKxfwvwmt9R-Heading4, .ns-pKxfwvwmt9R-Heading4, div#centered .ns-pKxfwvwmt9R-Heading4 div { 
-    font-weight: 700;
-    font-size: 15px;
-    
-}
-div#centered tr td .ns-nnBkwjvcCL_-Heading5, .ns-nnBkwjvcCL_-Heading5, div#centered .ns-nnBkwjvcCL_-Heading5 div { 
-    font-weight: 700;
-    font-size: 13px;
-    
-}
-div#centered tr td .ns-pEG0A5Mz2GD-Heading6, .ns-pEG0A5Mz2GD-Heading6, div#centered .ns-pEG0A5Mz2GD-Heading6 div { 
-    font-weight: 700;
-    font-size: 11px;
-    
-}
-div#centered tr td .ns-pTiYvh7dlKl-Highlight1, .ns-pTiYvh7dlKl-Highlight1, div#centered .ns-pTiYvh7dlKl-Highlight1 div { 
-    color: rgb(203,75,21);
-    
-}
-div#centered tr td .ns-c6ONGxxOaw2-Highlight2, .ns-c6ONGxxOaw2-Highlight2, div#centered .ns-c6ONGxxOaw2-Highlight2 div { 
-    color: rgb(38,138,209);
-    
-}
-div#centered tr td .ns-adbEN9ZhfPh-Highlight3, .ns-adbEN9ZhfPh-Highlight3, div#centered .ns-adbEN9ZhfPh-Highlight3 div { 
-    color: rgb(238,232,212);
-    
+    position: relative;
 }
 
-/* Named Styles Backgroud Colors */
-div#centered tr td .ns-bg-a5p8INCsDZI-Heading1, .ns-bg-a5p8INCsDZI-Heading1 { 
-    
-}
-div#centered tr td .ns-bg-jABEbAa9weG-Heading2, .ns-bg-jABEbAa9weG-Heading2 { 
-    
-}
-div#centered tr td .ns-bg-l6iKmfnBzzW-Heading3, .ns-bg-l6iKmfnBzzW-Heading3 { 
-    
-}
-div#centered tr td .ns-bg-pKxfwvwmt9R-Heading4, .ns-bg-pKxfwvwmt9R-Heading4 { 
-    
-}
-div#centered tr td .ns-bg-nnBkwjvcCL_-Heading5, .ns-bg-nnBkwjvcCL_-Heading5 { 
-    
-}
-div#centered tr td .ns-bg-pEG0A5Mz2GD-Heading6, .ns-bg-pEG0A5Mz2GD-Heading6 { 
-    
-}
-div#centered tr td .ns-bg-pTiYvh7dlKl-Highlight1, .ns-bg-pTiYvh7dlKl-Highlight1 { 
-    
-}
-div#centered tr td .ns-bg-c6ONGxxOaw2-Highlight2, .ns-bg-c6ONGxxOaw2-Highlight2 { 
-    
-}
-div#centered tr td .ns-bg-adbEN9ZhfPh-Highlight3, .ns-bg-adbEN9ZhfPh-Highlight3 { 
-    background-color: rgb(147,160,161);
-    
+.blog-read-more::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: var(--transition);
 }
 
-/* Named Styles Gutter Colors */
-div#centered tr td .ns-gutter-a5p8INCsDZI-Heading1, .ns-gutter-a5p8INCsDZI-Heading1 { 
-    
+.blog-read-more:hover::after {
+    width: 100%;
 }
-div#centered tr td .ns-gutter-jABEbAa9weG-Heading2, .ns-gutter-jABEbAa9weG-Heading2 { 
-    
+
+/* Contact Section */
+.contact-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 3rem;
+    align-items: start;
 }
-div#centered tr td .ns-gutter-l6iKmfnBzzW-Heading3, .ns-gutter-l6iKmfnBzzW-Heading3 { 
-    
+
+.contact-info {
+    margin-bottom: 2rem;
 }
-div#centered tr td .ns-gutter-pKxfwvwmt9R-Heading4, .ns-gutter-pKxfwvwmt9R-Heading4 { 
-    
+
+.contact-info p {
+    margin-bottom: 1.5rem;
+    color: var(--light-text-color);
+    font-size: 1.1rem;
 }
-div#centered tr td .ns-gutter-nnBkwjvcCL_-Heading5, .ns-gutter-nnBkwjvcCL_-Heading5 { 
-    
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
-div#centered tr td .ns-gutter-pEG0A5Mz2GD-Heading6, .ns-gutter-pEG0A5Mz2GD-Heading6 { 
-    
+
+.contact-method {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
-div#centered tr td .ns-gutter-pTiYvh7dlKl-Highlight1, .ns-gutter-pTiYvh7dlKl-Highlight1 { 
-    
+
+.contact-method i {
+    color: var(--primary-color);
+    font-size: 1.25rem;
 }
-div#centered tr td .ns-gutter-c6ONGxxOaw2-Highlight2, .ns-gutter-c6ONGxxOaw2-Highlight2 { 
-    
+
+.form-group {
+    margin-bottom: 1.5rem;
 }
-div#centered tr td .ns-gutter-adbEN9ZhfPh-Highlight3, .ns-gutter-adbEN9ZhfPh-Highlight3 { 
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--light-color);
+    color: var(--text-color);
+    font-family: inherit;
+    transition: var(--transition);
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.form-success {
+    text-align: center;
+    padding: 2rem;
+}
+
+.form-success i {
+    font-size: 3rem;
+    color: var(--success-color);
+    margin-bottom: 1rem;
+}
+
+.form-success h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--dark-color);
+    color: white;
+    padding: 3rem 0 2rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    border: 2px solid white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.footer-links ul {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: white;
+    opacity: 0.8;
+    transition: var(--transition);
+}
+
+.footer-links a:hover {
+    opacity: 1;
+}
+
+.footer-social {
+    display: flex;
+    gap: 1rem;
+}
+
+.footer-social a {
+    color: white;
+    font-size: 1.25rem;
+    opacity: 0.8;
+    transition: var(--transition);
+}
+
+.footer-social a:hover {
+    opacity: 1;
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom p {
+    opacity: 0.7;
+    font-size: 0.875rem;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .hero .container {
+        flex-direction: column;
+        text-align: center;
+    }
     
+    .hero-content p {
+        margin: 0 auto 2rem;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+    }
+    
+    .skills-container, .projects-grid, .blog-posts {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem 0;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background-color: var(--light-color);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: var(--transition);
+        z-index: 1001;
+    }
+    
+    .nav-links.active {
+        right: 0;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.75rem;
+    }
+    
+    .contact-container, .projects-filter {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .placeholder-image {
+        width: 200px;
+        height: 200px;
+        font-size: 2rem;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-links ul {
+        justify-content: center;
+    }
+    
+    .section {
+        padding: 3rem 0;
+    }
+    
+    .skills-container, .projects-grid, .blog-posts {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-content, .hero-image, .skill-category, .project-card, .blog-card {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.skill-category:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.skill-category:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.project-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.project-card:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.blog-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.blog-card:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* Code highlighting overrides */
+.hljs {
+    padding: 1.5rem !important;
+}
+
+/* Dark mode additional styles */
+.dark-mode .header,
+.dark-mode .project-card,
+.dark-mode .blog-card {
+    background-color: #2d2d2d;
+    border-color: #3d3d3d;
+}
+
+.dark-mode .form-group input,
+.dark-mode .form-group textarea {
+    background-color: #2d2d2d;
+    border-color: #3d3d3d;
+    color: var(--text-color);
+}
+
+.dark-mode .filter-btn {
+    border-color: #3d3d3d;
+    color: var(--text-color);
+}
+
+.dark-mode a:hover {
+    color: var(--light-color);
+}
+
+.dark-mode .nav-links a,
+.dark-mode .theme-toggle {
+    color: var(--text-color);
+}
+
+.dark-mode .project-tags span {
+    background-color: #3d3d3d;
+}
+
+.dark-mode .code-demo {
+    background-color: #1a1a1a;
+}
+
+.dark-mode .footer {
+    background-color: #1a1a1a;
 }
