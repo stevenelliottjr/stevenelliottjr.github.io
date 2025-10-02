@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Effective Data Visualization Techniques for ML Projects | Steven Elliott Jr.</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <style>
+        /* Blog specific styles */
+        .blog-post {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.8;
+        }
+
+        .blog-post h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-post h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .blog-post h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        .blog-post p {
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-post ul, .blog-post ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .blog-post li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-post ul {
+            list-style-type: disc;
+        }
+
+        .blog-post ol {
+            list-style-type: decimal;
+        }
+
+        .blog-post pre {
+            margin-bottom: 1.5rem;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .blog-post img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+        }
+
+        .blog-post blockquote {
+            margin: 2rem 0;
+            padding: 1rem 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            background-color: var(--border-color);
+            border-radius: var(--border-radius);
+            font-style: italic;
+        }
+
+        .blog-post blockquote p:last-child {
+            margin-bottom: 0;
+        }
+
+        .blog-meta {
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            color: var(--light-text-color);
+        }
+
+        .blog-meta span {
+            margin-right: 1rem;
+        }
+
+        .blog-meta i {
+            margin-right: 0.5rem;
+        }
+
+        .blog-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 3rem;
+        }
+
+        .blog-tags a {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 0.875rem;
+            color: var(--light-text-color);
+            transition: var(--transition);
+        }
+
+        .blog-tags a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .blog-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .blog-navigation a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .blog-navigation .prev i {
+            margin-right: 0.5rem;
+        }
+
+        .blog-navigation .next i {
+            margin-left: 0.5rem;
+        }
+
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background-color: var(--border-color);
+            border-radius: var(--border-radius);
+        }
+
+        .author-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: var(--light-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--light-text-color);
+        }
+
+        .author-info h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .author-info p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            color: var(--light-text-color);
+        }
+
+        .attention-visual {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .attention-visual img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .attention-visual figcaption {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--light-text-color);
+        }
+
+        /* Dark mode specific styles */
+        .dark-mode .blog-post blockquote {
+            background-color: #2d2d2d;
+        }
+
+        .dark-mode .blog-tags a {
+            background-color: #2d2d2d;
+        }
+
+        .dark-mode .blog-author {
+            background-color: #2d2d2d;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="../index.html" class="logo">SE</a>
+                <ul class="nav-links">
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="../index.html#skills">Skills</a></li>
+                    <li><a href="../index.html#projects">Projects</a></li>
+                    <li><a href="../index.html#blog">Blog</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                </ul>
+                <div class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="blog-post-container" style="padding-top: 80px;">
+        <div class="container">
+            <article class="blog-post">
+                <h1>Effective Data Visualization Techniques for ML Projects</h1>
+
+                <div class="blog-meta">
+                    <span><i class="far fa-calendar"></i> March 28, 2025</span>
+                    <span><i class="far fa-folder"></i> Data Science</span>
+                    <span><i class="far fa-clock"></i> 8 min read</span>
+                </div>
+
+                <p>In the world of machine learning, data visualization is not just about making pretty charts. It's a critical tool for understanding your data, diagnosing model performance, and communicating insights to stakeholders. The difference between a successful ML project and one that fails to deliver value often comes down to how well you can visualize and interpret your results.</p>
+
+                <p>In this article, we'll explore essential data visualization techniques that every ML practitioner should master, along with practical code examples and best practices for presenting your findings effectively.</p>
+
+                <h2>Why Visualization Matters in Machine Learning</h2>
+
+                <p>Before diving into specific techniques, it's important to understand why visualization is so crucial in ML workflows:</p>
+
+                <ul>
+                    <li><strong>Data exploration:</strong> Uncover patterns, outliers, and relationships before modeling</li>
+                    <li><strong>Model diagnostics:</strong> Identify issues like overfitting, underfitting, or class imbalance</li>
+                    <li><strong>Feature engineering:</strong> Discover opportunities for creating more informative features</li>
+                    <li><strong>Performance evaluation:</strong> Assess model quality beyond simple accuracy metrics</li>
+                    <li><strong>Stakeholder communication:</strong> Explain complex results to non-technical audiences</li>
+                </ul>
+
+                <blockquote>
+                    <p>"The greatest value of a picture is when it forces us to notice what we never expected to see." — John Tukey, pioneering statistician</p>
+                </blockquote>
+
+                <h2>Essential Visualization Types for ML</h2>
+
+                <p>Let's explore the most valuable visualization types for machine learning projects, starting with the fundamentals.</p>
+
+                <h3>1. Distribution Plots: Understanding Your Data</h3>
+
+                <p>Distribution plots help you understand the spread and shape of your data, which is critical for feature engineering and choosing appropriate algorithms.</p>
+
+                <pre><code class="language-python">
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+import pandas as pd
+
+# Set the style for better-looking plots
+sns.set_style("whitegrid")
+plt.rcParams['figure.figsize'] = (12, 6)
+
+# Generate sample data
+np.random.seed(42)
+data = pd.DataFrame({
+    'feature_1': np.random.normal(100, 15, 1000),
+    'feature_2': np.random.exponential(2, 1000),
+    'feature_3': np.random.gamma(2, 2, 1000)
+})
+
+# Create subplots for different distribution visualizations
+fig, axes = plt.subplots(1, 3, figsize=(15, 4))
+
+# Histogram
+axes[0].hist(data['feature_1'], bins=30, edgecolor='black', alpha=0.7)
+axes[0].set_title('Histogram: Feature Distribution')
+axes[0].set_xlabel('Value')
+axes[0].set_ylabel('Frequency')
+
+# KDE (Kernel Density Estimation) plot
+sns.kdeplot(data=data, x='feature_2', ax=axes[1], fill=True)
+axes[1].set_title('KDE Plot: Smooth Distribution')
+axes[1].set_xlabel('Value')
+
+# Box plot for outlier detection
+axes[2].boxplot([data['feature_1'], data['feature_2'], data['feature_3']],
+                labels=['Feature 1', 'Feature 2', 'Feature 3'])
+axes[2].set_title('Box Plot: Identifying Outliers')
+axes[2].set_ylabel('Value')
+
+plt.tight_layout()
+plt.show()
+                </code></pre>
+
+                <h3>2. Scatter Plots: Revealing Relationships</h3>
+
+                <p>Scatter plots are invaluable for understanding relationships between features and identifying potential correlations or clusters in your data.</p>
+
+                <pre><code class="language-python">
+from sklearn.datasets import make_classification
+
+# Generate synthetic classification data
+X, y = make_classification(n_samples=500, n_features=2, n_redundant=0,
+                          n_informative=2, n_clusters_per_class=1,
+                          random_state=42)
+
+# Create scatter plot with color-coded classes
+plt.figure(figsize=(10, 6))
+scatter = plt.scatter(X[:, 0], X[:, 1], c=y, cmap='viridis',
+                     alpha=0.6, edgecolors='black', s=50)
+plt.colorbar(scatter, label='Class')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.title('Scatter Plot: Feature Relationships and Class Separation')
+plt.grid(True, alpha=0.3)
+plt.show()
+
+# Pair plot for multiple features
+iris = sns.load_dataset('iris')
+sns.pairplot(iris, hue='species', diag_kind='kde',
+             palette='Set2', plot_kws={'alpha': 0.6})
+plt.suptitle('Pair Plot: Multi-Feature Relationships', y=1.02)
+plt.show()
+                </code></pre>
+
+                <h3>3. Correlation Heatmaps: Feature Interactions</h3>
+
+                <p>Heatmaps are essential for understanding multicollinearity and feature redundancy in your dataset.</p>
+
+                <pre><code class="language-python">
+# Generate a dataset with various correlations
+np.random.seed(42)
+n_samples = 1000
+features = pd.DataFrame({
+    'age': np.random.randint(18, 80, n_samples),
+    'income': np.random.normal(50000, 20000, n_samples),
+    'debt': np.random.normal(15000, 8000, n_samples),
+    'credit_score': np.random.randint(300, 850, n_samples)
+})
+
+# Add correlated features
+features['savings'] = features['income'] * 0.15 + np.random.normal(0, 5000, n_samples)
+features['debt_to_income'] = features['debt'] / features['income']
+
+# Calculate correlation matrix
+correlation_matrix = features.corr()
+
+# Create heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm',
+            center=0, square=True, linewidths=1,
+            cbar_kws={'shrink': 0.8}, fmt='.2f')
+plt.title('Correlation Heatmap: Feature Relationships', fontsize=14, pad=20)
+plt.tight_layout()
+plt.show()
+                </code></pre>
+
+                <h2>Visualizing Model Performance</h2>
+
+                <p>Once you've built a model, visualization becomes critical for understanding how well it's performing and where it might be failing.</p>
+
+                <h3>4. Confusion Matrix: Classification Performance</h3>
+
+                <p>The confusion matrix is one of the most informative visualizations for classification tasks, showing exactly where your model is making mistakes.</p>
+
+                <pre><code class="language-python">
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import confusion_matrix, classification_report
+
+# Prepare data and train model
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+clf = RandomForestClassifier(n_estimators=100, random_state=42)
+clf.fit(X_train, y_train)
+y_pred = clf.predict(X_test)
+
+# Create confusion matrix
+cm = confusion_matrix(y_test, y_pred)
+
+# Visualize with seaborn
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
+            xticklabels=['Class 0', 'Class 1'],
+            yticklabels=['Class 0', 'Class 1'])
+plt.title('Confusion Matrix: Model Predictions vs Actual', fontsize=14)
+plt.ylabel('Actual Label')
+plt.xlabel('Predicted Label')
+plt.show()
+
+# Print detailed metrics
+print(classification_report(y_test, y_pred))
+                </code></pre>
+
+                <h3>5. ROC Curve and AUC: Threshold Analysis</h3>
+
+                <p>ROC curves help you understand the trade-off between true positive rate and false positive rate across different classification thresholds.</p>
+
+                <pre><code class="language-python">
+from sklearn.metrics import roc_curve, auc, precision_recall_curve
+
+# Get prediction probabilities
+y_proba = clf.predict_proba(X_test)[:, 1]
+
+# Calculate ROC curve
+fpr, tpr, thresholds = roc_curve(y_test, y_proba)
+roc_auc = auc(fpr, tpr)
+
+# Calculate Precision-Recall curve
+precision, recall, pr_thresholds = precision_recall_curve(y_test, y_proba)
+
+# Create subplots
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+
+# ROC Curve
+ax1.plot(fpr, tpr, color='darkorange', lw=2,
+         label=f'ROC curve (AUC = {roc_auc:.2f})')
+ax1.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--', label='Random Classifier')
+ax1.set_xlim([0.0, 1.0])
+ax1.set_ylim([0.0, 1.05])
+ax1.set_xlabel('False Positive Rate')
+ax1.set_ylabel('True Positive Rate')
+ax1.set_title('ROC Curve: Model Performance')
+ax1.legend(loc="lower right")
+ax1.grid(True, alpha=0.3)
+
+# Precision-Recall Curve
+ax2.plot(recall, precision, color='green', lw=2)
+ax2.set_xlabel('Recall')
+ax2.set_ylabel('Precision')
+ax2.set_title('Precision-Recall Curve')
+ax2.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+                </code></pre>
+
+                <h3>6. Learning Curves: Diagnosing Overfitting</h3>
+
+                <p>Learning curves show how model performance changes with training set size, helping you diagnose whether you need more data or a different model complexity.</p>
+
+                <pre><code class="language-python">
+from sklearn.model_selection import learning_curve
+
+# Calculate learning curves
+train_sizes, train_scores, val_scores = learning_curve(
+    RandomForestClassifier(n_estimators=50, random_state=42),
+    X, y, cv=5, n_jobs=-1,
+    train_sizes=np.linspace(0.1, 1.0, 10),
+    scoring='accuracy'
+)
+
+# Calculate mean and std
+train_mean = np.mean(train_scores, axis=1)
+train_std = np.std(train_scores, axis=1)
+val_mean = np.mean(val_scores, axis=1)
+val_std = np.std(val_scores, axis=1)
+
+# Plot learning curves
+plt.figure(figsize=(10, 6))
+plt.plot(train_sizes, train_mean, label='Training Score', color='blue', marker='o')
+plt.fill_between(train_sizes, train_mean - train_std, train_mean + train_std,
+                 alpha=0.15, color='blue')
+plt.plot(train_sizes, val_mean, label='Validation Score', color='red', marker='s')
+plt.fill_between(train_sizes, val_mean - val_std, val_mean + val_std,
+                 alpha=0.15, color='red')
+plt.xlabel('Training Set Size')
+plt.ylabel('Accuracy Score')
+plt.title('Learning Curves: Training vs Validation Performance')
+plt.legend(loc='lower right')
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()
+                </code></pre>
+
+                <h2>Advanced Visualization Tools</h2>
+
+                <p>Beyond matplotlib and seaborn, several powerful libraries enable interactive and sophisticated visualizations.</p>
+
+                <h3>7. Interactive Visualizations with Plotly</h3>
+
+                <p>Interactive plots allow stakeholders to explore data dynamically, revealing insights that static plots might miss.</p>
+
+                <pre><code class="language-python">
+import plotly.graph_objects as go
+import plotly.express as px
+
+# Create interactive scatter plot
+fig = px.scatter(iris, x='sepal_length', y='sepal_width',
+                 color='species', size='petal_length',
+                 hover_data=['petal_width'],
+                 title='Interactive Scatter Plot: Iris Dataset')
+
+# Customize layout
+fig.update_layout(
+    hovermode='closest',
+    plot_bgcolor='rgba(240, 240, 240, 0.5)',
+    xaxis=dict(gridcolor='white'),
+    yaxis=dict(gridcolor='white')
+)
+
+fig.show()
+
+# Create 3D scatter plot for dimensionality visualization
+fig_3d = go.Figure(data=[go.Scatter3d(
+    x=X[:, 0],
+    y=X[:, 1],
+    z=y_proba,
+    mode='markers',
+    marker=dict(
+        size=5,
+        color=y,
+        colorscale='Viridis',
+        showscale=True
+    )
+)])
+
+fig_3d.update_layout(
+    title='3D Feature Space with Prediction Probabilities',
+    scene=dict(
+        xaxis_title='Feature 1',
+        yaxis_title='Feature 2',
+        zaxis_title='Prediction Probability'
+    )
+)
+
+fig_3d.show()
+                </code></pre>
+
+                <h2>Best Practices for ML Visualizations</h2>
+
+                <p>Creating effective visualizations requires more than just technical skills. Here are key principles to follow:</p>
+
+                <h3>1. Choose the Right Chart Type</h3>
+
+                <ul>
+                    <li><strong>Comparisons:</strong> Bar charts, grouped bar charts</li>
+                    <li><strong>Distributions:</strong> Histograms, violin plots, box plots</li>
+                    <li><strong>Relationships:</strong> Scatter plots, pair plots</li>
+                    <li><strong>Composition:</strong> Stacked bar charts, pie charts (use sparingly)</li>
+                    <li><strong>Time series:</strong> Line plots, area charts</li>
+                </ul>
+
+                <h3>2. Design for Your Audience</h3>
+
+                <p>Technical teams may appreciate detailed diagnostic plots, while executives often prefer high-level summary visualizations with clear business implications.</p>
+
+                <h3>3. Use Color Purposefully</h3>
+
+                <ul>
+                    <li>Choose colorblind-friendly palettes</li>
+                    <li>Use sequential colormaps for continuous data</li>
+                    <li>Use diverging colormaps when there's a meaningful center point</li>
+                    <li>Limit the number of colors to avoid confusion</li>
+                </ul>
+
+                <h3>4. Always Label and Title</h3>
+
+                <p>Every visualization should have clear axis labels, a descriptive title, and a legend when necessary. Your audience shouldn't have to guess what they're looking at.</p>
+
+                <h2>Creating Visualization Pipelines</h2>
+
+                <p>For production ML systems, it's valuable to create reusable visualization functions that can be integrated into your workflow.</p>
+
+                <pre><code class="language-python">
+class MLVisualizer:
+    """A reusable class for common ML visualizations."""
+
+    def __init__(self, figsize=(12, 6), style='whitegrid'):
+        self.figsize = figsize
+        sns.set_style(style)
+
+    def plot_feature_importance(self, model, feature_names, top_n=10):
+        """Plot feature importance from tree-based models."""
+        importances = model.feature_importances_
+        indices = np.argsort(importances)[-top_n:]
+
+        plt.figure(figsize=self.figsize)
+        plt.barh(range(len(indices)), importances[indices], align='center')
+        plt.yticks(range(len(indices)), [feature_names[i] for i in indices])
+        plt.xlabel('Feature Importance')
+        plt.title(f'Top {top_n} Most Important Features')
+        plt.tight_layout()
+        return plt
+
+    def plot_residuals(self, y_true, y_pred):
+        """Plot residuals for regression models."""
+        residuals = y_true - y_pred
+
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+
+        # Residual plot
+        ax1.scatter(y_pred, residuals, alpha=0.6)
+        ax1.axhline(y=0, color='r', linestyle='--')
+        ax1.set_xlabel('Predicted Values')
+        ax1.set_ylabel('Residuals')
+        ax1.set_title('Residual Plot')
+        ax1.grid(True, alpha=0.3)
+
+        # Residual distribution
+        ax2.hist(residuals, bins=30, edgecolor='black', alpha=0.7)
+        ax2.set_xlabel('Residual Value')
+        ax2.set_ylabel('Frequency')
+        ax2.set_title('Residual Distribution')
+
+        plt.tight_layout()
+        return plt
+
+    def save_dashboard(self, filepath):
+        """Save current figure to file."""
+        plt.savefig(filepath, dpi=300, bbox_inches='tight')
+
+# Usage example
+visualizer = MLVisualizer()
+visualizer.plot_feature_importance(clf, ['feature_1', 'feature_2'])
+plt.show()
+                </code></pre>
+
+                <h2>Conclusion: Visualization as a Superpower</h2>
+
+                <p>Effective data visualization is one of the most powerful tools in a machine learning practitioner's arsenal. It enables you to understand your data deeply, diagnose model issues quickly, and communicate results persuasively.</p>
+
+                <p>The key is to make visualization an integral part of your ML workflow, not an afterthought. Start every project with exploratory visualizations, use diagnostic plots throughout model development, and create polished presentations for stakeholders.</p>
+
+                <p>Remember: a well-crafted visualization can reveal insights that hours of staring at metrics and logs never will. Invest time in mastering these techniques, and you'll find yourself building better models and delivering more value to your organization.</p>
+
+                <div class="blog-tags">
+                    <a href="#">Data Visualization</a>
+                    <a href="#">Machine Learning</a>
+                    <a href="#">Python</a>
+                    <a href="#">Matplotlib</a>
+                    <a href="#">Seaborn</a>
+                    <a href="#">Data Science</a>
+                </div>
+
+                <div class="blog-author">
+                    <div class="author-image">SE</div>
+                    <div class="author-info">
+                        <h4>Steven Elliott Jr.</h4>
+                        <p>AI researcher and machine learning engineer specializing in natural language processing and advanced neural architectures.</p>
+                    </div>
+                </div>
+
+                <div class="blog-navigation">
+                    <a href="scaling-ml.html" class="prev"><i class="fas fa-chevron-left"></i> Previous: Scaling ML Models in Production</a>
+                    <a href="attention-mechanisms.html" class="next">Next: Understanding Attention Mechanisms <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">SE</div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="../index.html#about">About</a></li>
+                        <li><a href="../index.html#skills">Skills</a></li>
+                        <li><a href="../index.html#projects">Projects</a></li>
+                        <li><a href="../index.html#blog">Blog</a></li>
+                        <li><a href="../index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <a href="https://github.com/stevenelliottjr" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/steven-elliott-jr" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://twitter.com/stevenelliottjr" target="_blank"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Steven Elliott Jr. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../script.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        document.addEventListener('DOMContentLoaded', () => {
+            hljs.highlightAll();
+        });
+    </script>
+</body>
+</html>

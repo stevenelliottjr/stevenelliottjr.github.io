@@ -1,0 +1,13 @@
+Image placeholders created.
+
+To add actual images:
+1. Create logo.png files for each project (200x200px recommended)
+2. Create screenshots of each Streamlit app in action
+3. Add visualization examples (attention-mechanism.png, bert_architecture.png, etc.)
+4. Add diagrams for blog posts
+
+You can use tools like:
+- Canva for creating logos
+- Screenshot tools for app demos
+- Draw.io or Figma for technical diagrams
+- Python matplotlib/seaborn to generate visualization examples
